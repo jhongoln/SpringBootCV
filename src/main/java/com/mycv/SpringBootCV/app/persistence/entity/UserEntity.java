@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "cv_shema")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -37,4 +40,13 @@ public class UserEntity {
 
     @Column(name = "date_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dateModified;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_role",
+            schema = "cv_shema",
+            joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_role" , referencedColumnName = "id_role")
+    )
+    private List<RoleEntity> roles;
 }
