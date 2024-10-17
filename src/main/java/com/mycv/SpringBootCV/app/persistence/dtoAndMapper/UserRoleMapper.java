@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserMapper {
+public class UserRoleMapper {
 
 
     public UserDto mapperUserDto(UserEntity userEntity){
@@ -62,6 +62,14 @@ public class UserMapper {
             roleDto.setCreatedAt(rol.getCreatedAt());
             roleDto.setDateModified(rol.getDateModified());
             list.add(roleDto);
+        }
+        return list;
+    }
+
+    public List<UserDto> allUsersDto(List<UserEntity> userEntities){
+        List<UserDto> list = new ArrayList<>();
+        for (UserEntity user:userEntities) {
+            list.add(this.mapperUserDto(user));
         }
         return list;
     }

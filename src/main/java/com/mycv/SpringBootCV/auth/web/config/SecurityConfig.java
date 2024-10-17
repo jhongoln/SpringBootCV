@@ -32,8 +32,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/user/**").hasAnyRole(ADM_ROL,DEV_ROL)
+                        .requestMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
+                        .requestMatchers("/role/**").hasAnyRole(ADM_ROL)
+                        .requestMatchers(HttpMethod.GET, "/api/user/**").hasAnyRole(ADM_ROL)
                 .anyRequest().authenticated()  // Permitir todas las solicitudes sin autenticación
         )
                 .csrf(AbstractHttpConfigurer::disable)
